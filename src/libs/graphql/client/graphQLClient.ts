@@ -4,7 +4,7 @@ export type ApiResponse<T> = {
   error: string | null;
 };
 
-export type FetchGraphQLConfig = {
+export type GraphQLClientConfig = {
   variables?: object;
   revalidate?: number;
 };
@@ -24,7 +24,7 @@ export type FetchGraphQLConfig = {
 export const graphQLClient = async <T>(
   url: string,
   query: string,
-  config?: FetchGraphQLConfig
+  config?: GraphQLClientConfig
 ): Promise<ApiResponse<T>> => {
   const { variables, revalidate = 50 } = config || {};
 
