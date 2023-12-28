@@ -1,20 +1,16 @@
-import { GITHUB_URL } from "@/constants";
-
 import { GET_REPOSITORY } from "../graphql/queries/repository";
 import { ApiResponse, graphQLClient } from "../graphql/client/graphQLClient";
 import type { GraphQLClientConfig } from "../graphql/client/graphQLClient";
 
-type Avatar = {
-  id: string;
-  name: string | null;
-  avatarUrl: string;
-};
-
-type Stargazer = Avatar;
-
 type Owner = {
   id: string;
   login: string;
+  avatarUrl: string;
+};
+
+type Stargazer = {
+  id: string;
+  name: string | null;
   avatarUrl: string;
 };
 
@@ -24,23 +20,30 @@ type Stargazers = {
 };
 
 type Repository = {
-  owner: Owner;
   id: string;
   name: string;
+  description: string;
+  owner: Owner;
   stargazers: Stargazers;
 };
 
-type GraphQLResponse = {
+type GitHubRepositoryResponse = {
   repository: Repository;
 };
 
 /**
  * Response type for the getRepository function.
  */
-type RepositoryResponse = {
+type Response = {
   repository: Repository | null;
   isLoading: boolean;
   error: string | null;
+};
+
+type Variables = {
+  owner: string;
+  name: string;
+  stargazersLimit?: number;
 };
 
 /**
@@ -48,7 +51,7 @@ type RepositoryResponse = {
  *
  * @param {string} owner - The owner of the repository.
  * @param {string} name - The name of the repository.
- * @returns {Promise<RepositoriesResponse>} A promise containing the repository, loading state, and error message.
+ * @returns {Promise<Response>} A promise containing the repository, loading state, and error message.
  */
 export async function getRepository({
   owner,
@@ -56,14 +59,14 @@ export async function getRepository({
 }: {
   owner: string;
   name: string;
-}): Promise<RepositoryResponse> {
+}): Promise<Response> {
   const graphqlClientConfig: GraphQLClientConfig = {
     variables: { owner, name },
   };
 
   try {
-    const { data, isLoading, error }: ApiResponse<GraphQLResponse> =
-      await graphQLClient(GITHUB_URL, GET_REPOSITORY, graphqlClientConfig);
+    const { data, isLoading, error }: ApiResponse<GitHubRepositoryResponse> =
+      await graphQLClient(GET_REPOSITORY, graphqlClientConfig);
 
     return { repository: data?.repository || null, isLoading, error };
   } catch (error) {

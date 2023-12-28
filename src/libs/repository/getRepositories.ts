@@ -1,32 +1,32 @@
-import { GITHUB_URL } from "@/constants";
-
 import { GET_REPOSITORIES } from "../graphql/queries/repository";
 import { graphQLClient, ApiResponse } from "../graphql/client/graphQLClient";
 import type { GraphQLClientConfig } from "../graphql/client/graphQLClient";
 
-/**
- * Type representing a GitHub repository node.
- */
-export type GithubRepository = {
-  node: {
-    id: string;
-    name: string;
-    nameWithOwner: string;
-    description?: string;
-    owner: {
-      login: string;
-      avatarUrl: string;
-    };
-    stargazerCount: number;
-    stargazers: {
-      totalCount: number;
-      nodes: {
-        id: string;
-        name: string | null;
-        avatarUrl: string;
-      }[];
-    };
-  };
+type Owner = {
+  login: string;
+  avatarUrl: string;
+};
+
+type Stargazer = {
+  id: string;
+  name: string | null;
+  totalCount: number;
+  avatarUrl: string;
+};
+
+type Stargazers = {
+  totalCount: number;
+  nodes: Stargazer[];
+};
+
+export type Repository = {
+  id: string;
+  name: string;
+  nameWithOwner: string;
+  description?: string;
+  owner: Owner;
+  stargazerCount: number;
+  stargazers: Stargazers;
 };
 
 /**
@@ -34,29 +34,34 @@ export type GithubRepository = {
  */
 type GithubSearchResponse = {
   search: {
-    edges: GithubRepository[];
+    edges: {
+      node: Repository;
+    }[];
   };
 };
 
 /**
  * Return type for the getRepositories function.
  */
-type RepositoriesResponse = {
-  repositories: GithubRepository[] | null;
+type Response = {
+  repositories: Repository[] | null;
   isLoading: boolean;
   error: string | null;
+};
+
+type Variables = {
+  query: string;
+  limit?: number;
 };
 
 /**
  * Fetch GitHub repositories based on a search text.
  *
  * @param {string} searchText - The search text to query GitHub repositories.
- * @returns {Promise<RepositoriesResponse>} A promise containing the repositories, loading state, and error message.
+ * @returns {Promise<Response>} A promise containing the repositories, loading state, and error message.
  * @throws Will throw an error if the GraphQL client request fails.
  */
-export async function getRepositories(
-  searchText: string
-): Promise<RepositoriesResponse> {
+export async function getRepositories(searchText: string): Promise<Response> {
   if (!searchText) {
     return { repositories: null, isLoading: false, error: null };
   }
@@ -67,9 +72,14 @@ export async function getRepositories(
 
   try {
     const { data, isLoading, error }: ApiResponse<GithubSearchResponse> =
-      await graphQLClient(GITHUB_URL, GET_REPOSITORIES, config);
+      await graphQLClient(GET_REPOSITORIES, config);
 
-    return { repositories: data?.search.edges || null, isLoading, error };
+    return {
+      // shape the data by removing unnecessary wrapper objects
+      repositories: data?.search.edges.map((edge) => edge.node) || null,
+      isLoading,
+      error,
+    };
   } catch (error) {
     // Handle unexpected errors
     console.error("Error fetching repositories:", error);

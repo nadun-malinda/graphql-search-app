@@ -1,9 +1,9 @@
 export function LoadingSkeleton() {
   return (
-    <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 w-full">
+    <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
       {[...Array(16)].map((_, index) => (
         <li key={index} className="relative animate-pulse">
-          <div className="aspect-square max-h-[180px] w-full overflow-hidden rounded-md bg-gray-300 border-4 border-gray-500 p-3">
+          <div className="aspect-square max-h-[240px] w-full overflow-hidden rounded-xl bg-gray-300 border border-gray-500 p-5">
             <p className="mt-2 h-4 w-1/2 rounded-lg bg-gray-400 mb-3" />
             <div className="flex flex-row gap-2 items-center mb-1">
               <div className="w-5 h-5 rounded-full bg-gray-400" />
