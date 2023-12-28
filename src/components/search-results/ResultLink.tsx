@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export function ResultLink({ link }: { link: string }) {
+/**
+ * ResultLink component for navigating to a repository page.
+ *
+ * @param {Object} props - The input props.
+ * @param {string} props.link - The link to the repository page.
+ * @returns {JSX.Element} - The JSX element for the result link.
+ */
+export function ResultLink({ link }: { link: string }): JSX.Element {
   const searchParams = useSearchParams();
 
   return (

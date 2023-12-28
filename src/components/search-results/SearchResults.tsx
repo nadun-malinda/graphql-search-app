@@ -1,12 +1,31 @@
+import { Result } from "./Result";
+import { NoResults } from "./NoResults";
+
 import type { Repository } from "@/libs/repository/getRepositories";
 
-import { Result } from "./Result";
-
+/**
+ * Props for the SearchResults component.
+ *
+ * @interface
+ * @property {Repository[] | null} repositories - The array of repositories to display.
+ */
 interface SearchResultsProps {
   repositories: Repository[] | null;
 }
 
-export function SearchResults({ repositories }: SearchResultsProps) {
+/**
+ * SearchResults component for displaying a grid of repositories.
+ *
+ * @param {SearchResultsProps} props - The input props.
+ * @returns {JSX.Element} - The JSX element for search results.
+ */
+export function SearchResults({
+  repositories,
+}: SearchResultsProps): JSX.Element {
+  if (repositories?.length === 0) {
+    return <NoResults />;
+  }
+
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
       {repositories?.map((repository) => (

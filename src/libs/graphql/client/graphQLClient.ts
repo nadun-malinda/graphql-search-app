@@ -1,11 +1,19 @@
 import { GITHUB_URL } from "@/constants";
 
+/**
+ * Represents the structure of the API response.
+ *
+ * @template T - The expected response data type.
+ */
 export type ApiResponse<T> = {
   data: T | null;
   isLoading: boolean;
   error: string | null;
 };
 
+/**
+ * Represents the configuration for the GraphQL client.
+ */
 export type GraphQLClientConfig = {
   variables?: object;
   revalidate?: number;
@@ -16,11 +24,8 @@ export type GraphQLClientConfig = {
  *
  * @template T - The expected response data type.
  * @param {string} query - The GraphQL query.
- * @param {GraphQLClientConfig} config - Configuration object for variables and revalidation.
+ * @param {GraphQLClientConfig} [config] - Configuration object for variables and revalidation.
  * @returns {Promise<ApiResponse<T>>} A promise containing the response data, loading state, and error message.
- * @property {T | null} data - The response data.
- * @property {boolean} isLoading - Flag indicating if the data is being loaded.
- * @property {string | null} error - The error message, if an error occurred during the request.
  */
 export const graphQLClient = async <T>(
   query: string,
@@ -46,7 +51,7 @@ export const graphQLClient = async <T>(
         variables,
       }),
       next: {
-        revalidate, // NextJS api cache revealidation period. Default is set to 50.
+        revalidate, // NextJS api cache revalidation period. Default is set to 50.
       },
     });
 
@@ -63,9 +68,7 @@ export const graphQLClient = async <T>(
       console.error("GraphQL query errors:", responseData.errors);
     } else {
       // Handle other HTTP errors
-      result.error =
-        responseData?.message ||
-        "Error occurred while fetching data. Please try again!";
+      result.error = "Error occurred while fetching data. Please try again!";
       console.error("Error fetching data:", responseData);
     }
   } catch (error) {

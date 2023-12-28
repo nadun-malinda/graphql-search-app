@@ -5,7 +5,7 @@
  * @param {Object} props - The input props.
  * @param {Promise<T>} props.promise - The Promise to wait for.
  * @param {(value: T) => JSX.Element} props.children - A function that takes the resolved value and returns a JSX element.
- * @returns {JSX.Element} - The JSX element rendered by the children function with the resolved value.
+ * @returns {Promise<JSX.Element>} - A Promise containing the JSX element rendered by the children function with the resolved value.
  */
 export async function Await<T>({
   promise,
