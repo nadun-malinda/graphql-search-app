@@ -1,8 +1,7 @@
-import Image from "next/image";
-
 import { Repository } from "@/libs/repository/getRepositories";
 
 import { Card } from "../card";
+import { Image } from "../image";
 import { ResultLink } from "./ResultLink";
 
 /**

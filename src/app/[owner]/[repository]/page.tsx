@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 
+import { Image } from "@/components/image";
 import { Await } from "@/components/await";
 import { Error } from "@/components/error/Error";
 import { getRepository } from "@/libs/repository/getRepository";
