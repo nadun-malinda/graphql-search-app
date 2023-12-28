@@ -13,6 +13,7 @@ const config: Config = {
       },
       colors: {
         "react-dark": "#282c34",
+        "react-deep-slate": "#404756",
       },
     },
   },

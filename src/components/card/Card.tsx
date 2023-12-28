@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ReactNode } from "react";
 
 interface CardProps {
@@ -7,34 +6,20 @@ interface CardProps {
 
 export function Card({ children }: CardProps) {
   return (
-    <div className="border-4 border-cyan-400 hover:ring-4 transition-all rounded-md p-3 bg-white min-h-[150px] flex flex-col justify-between">
+    <div className="border border-gray-600 shadow-react-deep-slate hover:ring-4 transition-all rounded-xl p-5 bg-react-dark min-h-[150px] flex flex-col justify-between text-white">
       {children}
     </div>
   );
 }
 
 Card.Header = function CardHeader({ children }: CardProps) {
-  return (
-    <h3 className="text-lg mb-4 border-b-2 border-cyan-600 break-words">
-      {children}
-    </h3>
-  );
+  return <h3 className="text-xl mb-4 break-words font-semibold">{children}</h3>;
 };
 
 Card.Content = function CardContent({ children }: CardProps) {
-  return <div className="h-full mb-4">{children}</div>;
+  return <div className="h-full mb-6">{children}</div>;
 };
 
-Card.Link = function CardLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: ReactNode;
-}) {
-  return (
-    <Link href={href} className="underline text-cyan-700">
-      {children}
-    </Link>
-  );
+Card.Footer = function CardFooter({ children }: CardProps) {
+  return <>{children}</>;
 };

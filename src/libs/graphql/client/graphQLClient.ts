@@ -1,3 +1,5 @@
+import { GITHUB_URL } from "@/constants";
+
 export type ApiResponse<T> = {
   data: T | null;
   isLoading: boolean;
@@ -13,16 +15,14 @@ export type GraphQLClientConfig = {
  * GraphQL client for making requests to the GitHub API using fetchAPI.
  *
  * @template T - The expected response data type.
- * @param {string} url - The GraphQL API endpoint.
  * @param {string} query - The GraphQL query.
- * @param {FetchGraphQLConfig} [config] - Configuration object for variables and revalidation.
+ * @param {GraphQLClientConfig} config - Configuration object for variables and revalidation.
  * @returns {Promise<ApiResponse<T>>} A promise containing the response data, loading state, and error message.
  * @property {T | null} data - The response data.
  * @property {boolean} isLoading - Flag indicating if the data is being loaded.
  * @property {string | null} error - The error message, if an error occurred during the request.
  */
 export const graphQLClient = async <T>(
-  url: string,
   query: string,
   config?: GraphQLClientConfig
 ): Promise<ApiResponse<T>> => {
@@ -35,7 +35,7 @@ export const graphQLClient = async <T>(
   };
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(GITHUB_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

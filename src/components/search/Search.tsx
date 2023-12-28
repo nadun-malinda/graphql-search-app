@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -11,12 +11,13 @@ interface SearchProps {
 }
 
 export function Search({ focusOnLoad = false, placeholder }: SearchProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [searchText, setSearchText] = useState("");
-  const debounedSearchText = useDebounce(searchText);
-
-  const router = useRouter();
+  const { replace } = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [searchText, setSearchText] = useState(searchParams.get("query") || "");
+  const debounedSearchText = useDebounce(searchText);
 
   useEffect(() => {
     // focus on the input element when the component mounts
@@ -24,18 +25,22 @@ export function Search({ focusOnLoad = false, placeholder }: SearchProps) {
   }, [focusOnLoad]);
 
   useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
     if (debounedSearchText) {
-      router.push(`/?query=${debounedSearchText}`);
+      params.set("query", debounedSearchText);
     } else {
-      router.push("/");
+      params.delete("query");
     }
-  }, [debounedSearchText, pathname, router]);
+
+    replace(`${pathname}?${params.toString()}`);
+  }, [debounedSearchText, pathname, replace, searchParams]);
 
   return (
     <input
       ref={inputRef}
       type="text"
-      className="my-8 w-full max-w-lg rounded-full border-4 border-cyan-400 bg-white py-2 px-6 shadow-md focus:outline-none focus:ring-4 text-lg text-black"
+      className="my-8 w-full max-w-lg rounded-full border border-gray-600 shadow-react-deep-slate bg-react-dark py-2 px-6 focus:outline-none focus:ring-2 ring-gray-600 text-lg text-white"
       placeholder={`🔎 ${placeholder}`}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setSearchText(e.currentTarget.value)
