@@ -7,10 +7,12 @@ export const GET_REPOSITORIES = `
                         id
                         name
                         nameWithOwner
+                        description
                         owner {
                             login
                             avatarUrl
                         }
+                        stargazerCount
                         stargazers(first: 10) {
                             totalCount
                             nodes {
@@ -21,6 +23,28 @@ export const GET_REPOSITORIES = `
                         }
                 
                     }
+                }
+            }
+        }
+    }
+`;
+
+export const GET_REPOSITORY = `
+    query GeRepository($owner: String!, $name: String!) {
+        repository(owner: $owner, name: $name) {
+            id
+            name
+            owner {
+                id
+                login
+                avatarUrl
+            }
+            stargazers(first: 10) {
+                totalCount
+                nodes {
+                    id
+                    name
+                    avatarUrl
                 }
             }
         }

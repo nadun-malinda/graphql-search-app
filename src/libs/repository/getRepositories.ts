@@ -1,9 +1,8 @@
+import { GITHUB_URL } from "@/constants";
+
 import { GET_REPOSITORIES } from "../graphql/queries/repository";
-import {
-  graphQLClient,
-  ApiResponse,
-  FetchGraphQLConfig,
-} from "../graphql/client/graphQLClient";
+import { graphQLClient, ApiResponse } from "../graphql/client/graphQLClient";
+import type { GraphQLClientConfig } from "../graphql/client/graphQLClient";
 
 /**
  * Type representing a GitHub repository node.
@@ -13,10 +12,12 @@ export type GithubRepository = {
     id: string;
     name: string;
     nameWithOwner: string;
+    description?: string;
     owner: {
       login: string;
       avatarUrl: string;
     };
+    stargazerCount: number;
     stargazers: {
       totalCount: number;
       nodes: {
@@ -51,6 +52,7 @@ type RepositoriesResponse = {
  *
  * @param {string} searchText - The search text to query GitHub repositories.
  * @returns {Promise<RepositoriesResponse>} A promise containing the repositories, loading state, and error message.
+ * @throws Will throw an error if the GraphQL client request fails.
  */
 export async function getRepositories(
   searchText: string
@@ -59,16 +61,22 @@ export async function getRepositories(
     return { repositories: null, isLoading: false, error: null };
   }
 
-  const url = process.env.GITHUB_API || "https://api.github.com/graphql";
-  const config: FetchGraphQLConfig = {
+  const config: GraphQLClientConfig = {
     variables: { query: searchText },
-    revalidate: 50,
   };
 
-  const { data, isLoading, error }: ApiResponse<GithubSearchResponse> =
-    await graphQLClient(url, GET_REPOSITORIES, config);
+  try {
+    const { data, isLoading, error }: ApiResponse<GithubSearchResponse> =
+      await graphQLClient(GITHUB_URL, GET_REPOSITORIES, config);
 
-  console.log("repositories: ", data?.search.edges || null);
-
-  return { repositories: data?.search.edges || null, isLoading, error };
+    return { repositories: data?.search.edges || null, isLoading, error };
+  } catch (error) {
+    // Handle unexpected errors
+    console.error("Error fetching repositories:", error);
+    return {
+      repositories: null,
+      isLoading: false,
+      error: "An unexpected error occurred while fetching repositories!",
+    };
+  }
 }
