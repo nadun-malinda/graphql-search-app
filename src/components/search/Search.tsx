@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import { useDebounce } from "@/hooks/useDebounce";
+import { URL_SEARCH_PARAM } from "@/constants";
 
 /**
  * Interface for search component props.
@@ -34,24 +35,28 @@ export function Search({
   const searchParams = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [searchText, setSearchText] = useState(searchParams.get("query") || "");
+  const [searchText, setSearchText] = useState(
+    searchParams.get(URL_SEARCH_PARAM) || ""
+  );
   const debouncedSearchText = useDebounce(searchText);
 
   useEffect(() => {
-    // Focus on the input element when the component mounts
+    // focus on the input element when the component mounts
     focusOnLoad && inputRef.current?.focus();
   }, [focusOnLoad]);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
+    const searchParam = new URLSearchParams(searchParams);
 
     if (debouncedSearchText) {
-      params.set("query", debouncedSearchText);
+      // set the search parameter if the search text is not empty
+      searchParam.set(URL_SEARCH_PARAM, debouncedSearchText);
     } else {
-      params.delete("query");
+      // remove the search parameter if the search text is empty
+      searchParam.delete(URL_SEARCH_PARAM);
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${searchParam.toString()}`);
   }, [debouncedSearchText, pathname, replace, searchParams]);
 
   return (
