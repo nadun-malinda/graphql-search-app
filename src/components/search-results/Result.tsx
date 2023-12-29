@@ -1,45 +1,59 @@
-import { Repository } from "@/libs/repository/getRepositories";
-
 import { Card } from "../card";
 import { Image } from "../image";
 import { ResultLink } from "./ResultLink";
 
+interface ResultProps {
+  name: string;
+  avatarUrl: string;
+  ownerLogin: string;
+  stargazerCount: number;
+  description: string;
+  link: string;
+}
+
 /**
  * Component to display a search result card for a GitHub repository.
  *
- * @param {Object} props - The input props.
- * @param {Repository} props.repository - The repository object to display.
- * @returns {JSX.Element} - The JSX element representing the Result component.
+ * @param {ResultProps} props - The props of the component.
+ * @param {string} props.name - The name of the repository.
+ * @param {string} props.avatarUrl - The URL of the owner's avatar.
+ * @param {string} props.ownerLogin - The login name of the owner.
+ * @param {number} props.stargazerCount - The number of stars the repository has.
+ * @param {string} props.description - The description of the repository.
+ * @param {string} props.link - The link to the repository.
  */
 export function Result({
-  repository,
-}: {
-  repository: Repository;
-}): JSX.Element {
+  name,
+  avatarUrl,
+  ownerLogin,
+  stargazerCount,
+  description,
+  link,
+}: ResultProps): JSX.Element {
   return (
     <div className="md:hover:origin-center md:hover:rotate-2 md:hover:scale-105 md:transition-transform">
       <Card>
-        <Card.Header>{repository.name}</Card.Header>
+        <Card.Header>{name}</Card.Header>
 
         <Card.Content>
-          <div className="flex flex-row gap-2 items-center mb-1">
+          <div className="flex flex-row flex-wrap gap-2 items-center mb-1">
             <div>
               <Image
-                src={repository.owner.avatarUrl}
+                src={avatarUrl}
                 width={25}
                 height={25}
-                alt={`Avatar of ${repository.owner.login}`}
+                alt={`Avatar of ${ownerLogin}`}
                 className="rounded-full shadow-md border border-white"
               />
             </div>
-            <p className="text-md">{repository.owner.login}</p>
+            <p className="text-md break-all">{ownerLogin}</p>
           </div>
-          <p className="text-sm mb-2">⭐ {repository.stargazerCount}</p>
-          <p className="text-sm line-clamp-3">{repository.description}</p>
+          <p className="text-sm mb-2">⭐ {stargazerCount}</p>
+          <p className="text-sm line-clamp-3">{description}</p>
         </Card.Content>
 
         <Card.Footer>
-          <ResultLink link={repository.nameWithOwner} />
+          <ResultLink link={link} />
         </Card.Footer>
       </Card>
     </div>

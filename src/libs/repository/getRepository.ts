@@ -1,51 +1,8 @@
 import { GET_REPOSITORY } from "../graphql/queries/repository";
 import { ApiResponse, graphQLClient } from "../graphql/client/graphQLClient";
 
-import type { GraphQLClientConfig } from "../graphql/client/graphQLClient";
-
-/**
- * Represents an owner of a GitHub repository.
- */
-type Owner = {
-  id: string;
-  login: string;
-  avatarUrl: string;
-};
-
-/**
- * Represents a stargazer of a GitHub repository.
- */
-type Stargazer = {
-  id: string;
-  name: string | null;
-  avatarUrl: string;
-};
-
-/**
- * Represents a list of stargazers of a GitHub repository.
- */
-type Stargazers = {
-  totalCount: number;
-  nodes: Stargazer[];
-};
-
-/**
- * Represents a GitHub repository.
- */
-type Repository = {
-  id: string;
-  name: string;
-  description: string;
-  owner: Owner;
-  stargazers: Stargazers;
-};
-
-/**
- * Represents the response structure from a GitHub repository query.
- */
-type GitHubRepositoryResponse = {
-  repository: Repository;
-};
+import type { GraphQLClientConfig } from "@/types/graphql-client";
+import type { Repository, GitHubRepositoryResponse } from "@/types/repository";
 
 /**
  * Response type for the getRepository function.
@@ -54,15 +11,6 @@ type Response = {
   repository: Repository | null;
   isLoading: boolean;
   error: string | null;
-};
-
-/**
- * Variables required for fetching a GitHub repository.
- */
-type Variables = {
-  owner: string;
-  name: string;
-  stargazersLimit?: number;
 };
 
 /**
