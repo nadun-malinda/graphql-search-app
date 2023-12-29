@@ -1,4 +1,5 @@
 import { GITHUB_URL } from "@/constants";
+import type { GraphQLClientConfig } from "@/types/graphql-client";
 
 /**
  * Represents the structure of the API response.
@@ -9,14 +10,6 @@ export type ApiResponse<T> = {
   data: T | null;
   isLoading: boolean;
   error: string | null;
-};
-
-/**
- * Represents the configuration for the GraphQL client.
- */
-export type GraphQLClientConfig = {
-  variables?: object;
-  revalidate?: number;
 };
 
 /**

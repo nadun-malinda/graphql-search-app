@@ -1,7 +1,7 @@
 import { Result } from "./Result";
 import { NoResults } from "./NoResults";
 
-import type { Repository } from "@/libs/repository/getRepositories";
+import type { Repository } from "@/types/repository";
 
 /**
  * Props for the SearchResults component.
@@ -29,7 +29,15 @@ export function SearchResults({
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
       {repositories?.map((repository) => (
-        <Result key={repository.id} repository={repository} />
+        <Result
+          key={repository.id}
+          name={repository.name}
+          avatarUrl={repository.owner.avatarUrl}
+          ownerLogin={repository.owner.login}
+          stargazerCount={repository.stargazerCount}
+          description={repository.description}
+          link={repository.nameWithOwner}
+        />
       ))}
     </div>
   );

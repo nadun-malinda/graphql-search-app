@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 
-import { getRepositories, Repository } from "@/libs/repository/getRepositories";
+import { getRepositories } from "@/libs/repository";
 
 import { Await } from "@/components/await";
 import { Error } from "@/components/error";
 import { Search } from "@/components/search";
 import { LoadingSkeleton } from "@/components/loading";
 import { SearchResults } from "@/components/search-results";
+
+import type { Repository } from "@/types/repository";
 
 /**
  * Interface for search parameters.
