@@ -4,6 +4,7 @@ import { getRepositories } from "@/libs/repository";
 
 import { Await } from "@/components/await";
 import { Error } from "@/components/error";
+import { Reset } from "@/components/reset";
 import { Search } from "@/components/search";
 import { LoadingSkeleton } from "@/components/loading";
 import { SearchResults } from "@/components/search-results";
@@ -43,6 +44,8 @@ export default function Home({ searchParams }: HomeProps): JSX.Element {
   return (
     <main className="flex flex-col justify-center items-center mb-6">
       <Search focusOnLoad placeholder="Search for a GitHub repository..." />
+
+      <Reset />
 
       <Suspense fallback={<LoadingSkeleton />} key={searchParam}>
         <Await promise={promise}>

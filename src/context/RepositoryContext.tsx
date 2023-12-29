@@ -7,10 +7,12 @@ import { createContext, useState } from "react";
  * @interface
  * @property {string[]} clickedResults - An array of clicked result IDs.
  * @property {function} handleResultClick - Function to handle the click event on a result.
+ * @property {function} clearClickedResults - Function to clear the clickedResults array.
  */
 interface RepositoryContextProps {
   clickedResults: string[];
   handleResultClick: (id: string) => void;
+  clearClickedResults: () => void;
 }
 
 /**
@@ -20,6 +22,7 @@ export const RepositoryContext: React.Context<RepositoryContextProps> =
   createContext<RepositoryContextProps>({
     clickedResults: [],
     handleResultClick: () => {},
+    clearClickedResults: () => {},
   });
 
 /**
@@ -51,8 +54,17 @@ export function RepositoryContextProvider({
     });
   }
 
+  /**
+   * Clears the clickedResults array to reset the state
+   */
+  function clearClickedResults() {
+    setClckedResults([]);
+  }
+
   return (
-    <RepositoryContext.Provider value={{ clickedResults, handleResultClick }}>
+    <RepositoryContext.Provider
+      value={{ clickedResults, handleResultClick, clearClickedResults }}
+    >
       {children}
     </RepositoryContext.Provider>
   );
