@@ -1,4 +1,5 @@
 import { Result } from "./Result";
+import { Reset } from "../reset";
 import { NoResults } from "./NoResults";
 
 import type { Repository } from "@/types/repository";
@@ -22,24 +23,29 @@ interface SearchResultsProps {
 export function SearchResults({
   repositories,
 }: SearchResultsProps): JSX.Element {
+  if (!repositories) return <></>;
+
   if (repositories?.length === 0) {
     return <NoResults />;
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
-      {repositories?.map((repository) => (
-        <Result
-          key={repository.id}
-          id={repository.id}
-          name={repository.name}
-          avatarUrl={repository.owner.avatarUrl}
-          ownerLogin={repository.owner.login}
-          stargazerCount={repository.stargazerCount}
-          description={repository.description}
-          link={repository.nameWithOwner}
-        />
-      ))}
-    </div>
+    <>
+      <Reset />
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
+        {repositories?.map((repository) => (
+          <Result
+            key={repository.id}
+            id={repository.id}
+            name={repository.name}
+            avatarUrl={repository.owner.avatarUrl}
+            ownerLogin={repository.owner.login}
+            stargazerCount={repository.stargazerCount}
+            description={repository.description}
+            link={repository.nameWithOwner}
+          />
+        ))}
+      </div>
+    </>
   );
 }
