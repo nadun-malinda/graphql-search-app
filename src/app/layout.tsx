@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+
+import { RepositoryContextProvider } from "@/context/RepositoryContext";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -19,10 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="bg-react-dark antialiased">
-        <div className="p-4 max-w-6xl mx-auto w-full h-full min-h-screen">
-          {children}
-        </div>
+      <body className="antialiased">
+        <RepositoryContextProvider>
+          <div className="p-4 max-w-6xl mx-auto w-full h-full min-h-screen">
+            {children}
+          </div>
+        </RepositoryContextProvider>
       </body>
     </html>
   );

@@ -15,6 +15,7 @@ export function ResultLink({ link }: { link: string }): JSX.Element {
 
   return (
     <Link
+      onClick={(e) => e.stopPropagation()} // prevent the parent from being clicked
       href={`/${link}?query=${searchParams.get("query")}`}
       className="text-white font-semibold"
     >

@@ -31,6 +31,7 @@ export function SearchResults({
       {repositories?.map((repository) => (
         <Result
           key={repository.id}
+          id={repository.id}
           name={repository.name}
           avatarUrl={repository.owner.avatarUrl}
           ownerLogin={repository.owner.login}
