@@ -5,9 +5,11 @@ import { ReactNode } from "react";
  *
  * @interface
  * @property {ReactNode} children - The content of the Card.
+ * @property {cssClasses} string - The additional TailwindCss classes to include on the parent Card.
  */
 interface CardProps {
   children: ReactNode;
+  cssClasses?: string;
 }
 
 /**
@@ -16,9 +18,11 @@ interface CardProps {
  * @param {CardProps} props - The input props.
  * @returns {JSX.Element} - The JSX element representing the Card component.
  */
-export function Card({ children }: CardProps): JSX.Element {
+export function Card({ children, cssClasses }: CardProps): JSX.Element {
   return (
-    <div className="border border-gray-600 shadow-react-deep-slate hover:ring-2 transition-all rounded-xl p-5 bg-react-dark h-full flex flex-col justify-between text-white">
+    <div
+      className={`bg-react-dark border border-gray-600 shadow-react-deep-slate hover:ring-2 transition-all rounded-xl p-5 h-full flex flex-col justify-between text-white ${cssClasses}`}
+    >
       {children}
     </div>
   );

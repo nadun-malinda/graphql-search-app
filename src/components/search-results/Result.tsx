@@ -1,8 +1,13 @@
+"use client";
+
+import { useRepositoryContext } from "@/hooks/useRepositoryContext";
+
 import { Card } from "../card";
 import { Image } from "../image";
 import { ResultLink } from "./ResultLink";
 
 interface ResultProps {
+  id: string;
   name: string;
   avatarUrl: string;
   ownerLogin: string;
@@ -15,6 +20,7 @@ interface ResultProps {
  * Component to display a search result card for a GitHub repository.
  *
  * @param {ResultProps} props - The props of the component.
+ * @param {string} props.id - The ID of the repository.
  * @param {string} props.name - The name of the repository.
  * @param {string} props.avatarUrl - The URL of the owner's avatar.
  * @param {string} props.ownerLogin - The login name of the owner.
@@ -23,6 +29,7 @@ interface ResultProps {
  * @param {string} props.link - The link to the repository.
  */
 export function Result({
+  id,
   name,
   avatarUrl,
   ownerLogin,
@@ -30,9 +37,18 @@ export function Result({
   description,
   link,
 }: ResultProps): JSX.Element {
+  const { clickedResults, handleResultClick } = useRepositoryContext();
+
   return (
-    <div className="md:hover:origin-center md:hover:rotate-2 md:hover:scale-105 md:transition-transform">
-      <Card>
+    <div
+      className="md:hover:origin-center md:hover:rotate-2 md:hover:scale-105 md:transition-transform"
+      onClick={() => handleResultClick(id)}
+    >
+      <Card
+        cssClasses={`${
+          clickedResults.includes(id) ? "opacity-50" : "opacity-1"
+        }`}
+      >
         <Card.Header>{name}</Card.Header>
 
         <Card.Content>
