@@ -7,3 +7,6 @@ export const REPOSITORIES_DEFAULT_LIMIT = 20;
 
 // Stargazers limit to use to filter
 export const STARGAZERS_DEFAULT_LIMIT = 20;
+
+// The URL search query string name to use to retrieve data from the URL
+export const URL_SEARCH_PARAM = "search";

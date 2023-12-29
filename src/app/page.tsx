@@ -14,10 +14,10 @@ import type { Repository } from "@/types/repository";
  * Interface for search parameters.
  *
  * @interface
- * @property {string} [query] - The search query parameter.
+ * @property {string} [search] - The search query parameter.
  */
 interface SearchParams {
-  query?: string;
+  search?: string;
 }
 
 /**
@@ -37,14 +37,14 @@ interface HomeProps {
  * @returns {JSX.Element} - The JSX element for the home page.
  */
 export default function Home({ searchParams }: HomeProps): JSX.Element {
-  const query = searchParams?.query || "";
-  const promise = getRepositories(query);
+  const searchParam = searchParams?.search || "";
+  const promise = getRepositories(searchParam);
 
   return (
     <main className="flex flex-col justify-center items-center mb-6">
       <Search focusOnLoad placeholder="Search for a GitHub repository..." />
 
-      <Suspense fallback={<LoadingSkeleton />} key={query}>
+      <Suspense fallback={<LoadingSkeleton />} key={searchParam}>
         <Await promise={promise}>
           {({
             repositories,

@@ -3,7 +3,10 @@ import Link from "next/link";
 import { Image } from "@/components/image";
 import { Await } from "@/components/await";
 import { Error } from "@/components/error/Error";
+
 import { getRepository } from "@/libs/repository/getRepository";
+
+import { generateUrlSearchString } from "@/utils/url";
 
 /**
  * Type for the route parameters.
@@ -17,13 +20,13 @@ type Params = {
  * Type for search parameters.
  */
 type SearchParams = {
-  query: string;
+  search: string;
 };
 
 /**
  * Props for the RepositoryDetailPage component.
  */
-interface RepositoryDetailProps {
+interface RepositoryDetailPageProps {
   params: Params;
   searchParams: SearchParams;
 }
@@ -39,7 +42,7 @@ interface RepositoryDetailProps {
 export default function RepositoryDetailPage({
   params,
   searchParams,
-}: RepositoryDetailProps): JSX.Element {
+}: RepositoryDetailPageProps): JSX.Element {
   const promise = getRepository({
     owner: params.owner,
     name: params.repository,
@@ -48,7 +51,7 @@ export default function RepositoryDetailPage({
   return (
     <div className="p-8 border border-gray-600 shadow-react-deep-slate bg-react-dark text-white rounded-md">
       <Link
-        href={`/?query=${searchParams.query}`}
+        href={`/${generateUrlSearchString(searchParams.search)}`}
         className="block text-white font-semibold mb-8"
       >
         ← Home
