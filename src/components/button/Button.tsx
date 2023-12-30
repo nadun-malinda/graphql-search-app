@@ -19,13 +19,18 @@ interface ButtonProps {
  * @param {ButtonProps} props - The input props.
  * @returns {JSX.Element} - The JSX element representing the Button component.
  */
-export function Button({ text, disabled, onClick }: ButtonProps): JSX.Element {
+export function Button({
+  text,
+  disabled = false,
+  onClick,
+}: ButtonProps): JSX.Element {
   return (
     <button
       className={`rounded-full mb-6 bg-react-dark border border-gray-600 text-white py-2 px-6 ${
         disabled ? "opacity-40 pointer-events-none" : ""
       }`}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>

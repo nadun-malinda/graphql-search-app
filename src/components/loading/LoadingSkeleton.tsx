@@ -1,12 +1,23 @@
 /**
+ * Interface for the LoadingSkeleton component props.
+ * @interface
+ * @property {number} numberOfItem - The number of items to display in the loading skeleton.
+ */
+interface LoadingSkeletonProps {
+  numberOfItem?: number;
+}
+
+/**
  * LoadingSkeleton component to display a skeleton loading state.
  *
  * @returns {JSX.Element} - The JSX element representing the LoadingSkeleton component.
  */
-export function LoadingSkeleton(): JSX.Element {
+export function LoadingSkeleton({
+  numberOfItem = 10,
+}: LoadingSkeletonProps): JSX.Element {
   return (
     <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
-      {[...Array(16)].map((_, index) => (
+      {[...Array(numberOfItem)].map((_, index) => (
         <li key={index} className="relative animate-pulse">
           <div className="aspect-square max-h-[240px] w-full overflow-hidden rounded-xl bg-react-dark border border-gray-500 p-5">
             <p className="mt-2 h-4 w-1/2 rounded-lg bg-gray-400 mb-3" />
