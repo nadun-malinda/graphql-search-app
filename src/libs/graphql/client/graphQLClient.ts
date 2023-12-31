@@ -55,9 +55,7 @@ export const graphQLClient = async <T>(
       result.data = responseData.data as T;
     } else if (responseData.errors) {
       // Handle GraphQL errors
-      result.error = responseData.errors
-        .map((error: any) => error.message)
-        .join("\n");
+      result.error = "It's not you. It's us!. Please try again later!";
       console.error("GraphQL query errors:", responseData.errors);
     } else {
       // Handle other HTTP errors
