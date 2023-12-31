@@ -13,7 +13,7 @@ interface LoadingSkeletonProps {
  * @returns {JSX.Element} - The JSX element representing the LoadingSkeleton component.
  */
 export function LoadingSkeleton({
-  numberOfItem = 10,
+  numberOfItem = 20,
 }: LoadingSkeletonProps): JSX.Element {
   return (
     <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">

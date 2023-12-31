@@ -5,7 +5,7 @@ import { URL_SEARCH_PARAM } from "@/constants";
  *
  * @param {string | null} query - The search term.
  * @returns {string} The generated URL query string.
- * @throws {Error} When the query parameter is null.
+ * @example generateUrlSearchString("test") // "?search=test"
  */
 export function generateUrlSearchString(query: string | null): string {
   return `?${URL_SEARCH_PARAM}=${query}`;
