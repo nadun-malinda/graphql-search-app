@@ -10,3 +10,11 @@ export const STARGAZERS_DEFAULT_LIMIT = 20;
 
 // The URL search query string name to use to retrieve data from the URL
 export const URL_SEARCH_PARAM = "search";
+
+// Different error messages use when retrieving data
+export const ERR_MESSAGE_GRAPHQL =
+  "It's not you. It's us!. Please try again later!";
+export const ERR_MESSAGE_HTTP =
+  "Error occurred while fetching data. Please try again!";
+export const ERR_MESSAGE_UNEXPECTED =
+  "An unexpected error occurred. Please try again!";

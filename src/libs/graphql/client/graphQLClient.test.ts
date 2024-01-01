@@ -1,41 +1,56 @@
-import { graphQLClient } from "./graphQLClient";
-import fetchMock from "jest-fetch-mock";
-import { GET_REPOSITORIES } from "../queries/repository";
+import { HttpResponse, graphql, http } from "msw";
 
-describe("graphQLClient", () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
+import { server } from "@/__tests__/__mocks__/server";
+import { allRepositories } from "@/__tests__/__mocks__/handlers";
+
+import { graphQLClient } from "./graphQLClient";
+import { GET_REPOSITORIES } from "../queries/repository";
+import { ERR_MESSAGE_GRAPHQL, ERR_MESSAGE_UNEXPECTED } from "@/constants";
+
+const GRAPHQL_API = process.env.GITHUB_URL as string;
+
+describe("graphQLCleint", () => {
+  it("should return data when the request is successfull", async () => {
+    const responseData = await graphQLClient(GET_REPOSITORIES);
+
+    expect(responseData).toEqual({
+      data: allRepositories,
+      isLoading: false,
+      error: null,
+    });
   });
 
-  it("returns data when the request is successful", async () => {
-    const mockData = {
-      search: {
-        edges: [
-          {
-            node: {
-              description:
-                "Data modeling and relation library for testing JavaScript applications.",
-              id: "MDEwOlJlcG9zaXRvcnkzMTk2MTkzMjI=",
-              name: "data",
-              nameWithOwner: "mswjs/data",
-              owner: {
-                avatarUrl:
-                  "https://avatars.githubusercontent.com/u/64637271?v=4",
-                login: "mswjs",
-              },
-              stargazerCount: 689,
-            },
-          },
-        ],
-      },
-    };
-    fetchMock.mockResponseOnce(JSON.stringify({ data: mockData }));
+  it("should return GraphQL error on API call with GraphQL error", async () => {
+    server.use(
+      graphql.query("GetRepositories", () => {
+        return HttpResponse.json({
+          errors: [{ message: "GraphQL error" }],
+        });
+      })
+    );
 
-    const response = await graphQLClient(GET_REPOSITORIES, {
-      variables: { query: "test data", limit: 1 },
+    const response = await graphQLClient(GET_REPOSITORIES);
+
+    expect(response).toEqual({
+      data: null,
+      isLoading: false,
+      error: ERR_MESSAGE_GRAPHQL,
     });
-    expect(response.data).toEqual(mockData);
-    expect(response.isLoading).toBe(false);
-    expect(response.error).toBe(null);
+  });
+
+  it("should returns unexpected error on API call with unexpected errors", async () => {
+    server.use(
+      http.post(GRAPHQL_API, () => {
+        return HttpResponse.error();
+      })
+    );
+
+    const response = await graphQLClient(GET_REPOSITORIES);
+
+    expect(response).toEqual({
+      data: null,
+      isLoading: false,
+      error: ERR_MESSAGE_UNEXPECTED,
+    });
   });
 });
