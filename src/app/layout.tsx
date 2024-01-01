@@ -25,7 +25,9 @@ export default function RootLayout({
       <body className="antialiased">
         <RepositoryContextProvider>
           <div className="p-4 max-w-6xl mx-auto w-full h-full min-h-screen">
-            {children}
+            <main className="flex flex-col justify-center items-center mb-6">
+              {children}
+            </main>
           </div>
         </RepositoryContextProvider>
       </body>

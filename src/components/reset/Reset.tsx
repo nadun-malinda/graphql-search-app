@@ -11,7 +11,7 @@ export function Reset(): JSX.Element {
   const { clickedResults, clearClickedResults } = useRepositoryContext();
 
   return (
-    <div className="flex justify-end w-full">
+    <div className="flex justify-end w-full mb-6">
       <Button
         disabled={clickedResults.length === 0}
         onClick={() => clearClickedResults()}

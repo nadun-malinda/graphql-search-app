@@ -49,7 +49,7 @@ export default function RepositoryDetailPage({
   });
 
   return (
-    <div className="p-8 border border-gray-600 shadow-react-deep-slate bg-react-dark text-white rounded-md">
+    <div className="p-8 border border-gray-600 shadow-react-deep-slate bg-react-dark text-white rounded-md w-full">
       <Link
         href={`/${generateUrlSearchString(searchParams.search)}`}
         className="block text-white font-semibold mb-8"
