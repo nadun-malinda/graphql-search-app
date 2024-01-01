@@ -31,10 +31,10 @@ type Stargazers = {
 export type Repository = {
   id: string;
   name: string;
-  nameWithOwner?: string;
+  nameWithOwner: string;
   description: string;
   owner: Owner;
-  stargazerCount?: number;
+  stargazerCount: number;
   stargazers?: Stargazers;
 };
 

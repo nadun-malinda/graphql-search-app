@@ -155,12 +155,14 @@ export const singleRepository: GitHubRepositoryResponse = {
     id: "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
     name: "react",
     description: "京东首页构建",
+    nameWithOwner: "Cathy0807/react",
     owner: {
       id: "MDQ6VXNlcjIwNjUzNjQz",
       login: "Cathy0807",
       avatarUrl:
         "https://avatars.githubusercontent.com/u/20653643?u=25c772040b14adced5ffda8f0dc8598efd11fe0e&v=4",
     },
+    stargazerCount: 216750,
     stargazers: {
       totalCount: 835,
       nodes: [
