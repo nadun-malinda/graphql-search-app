@@ -82,7 +82,7 @@ export default function RepositoryDetailPage({
 
               <p className="font-bold mb-2">Stargazers: </p>
               <div className="flex flex-row gap-1 mb-3 flex-wrap">
-                {repository?.stargazers.nodes.map((stargazer) => (
+                {repository?.stargazers?.nodes.map((stargazer) => (
                   <Image
                     key={stargazer.id}
                     src={stargazer.avatarUrl}
