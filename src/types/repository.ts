@@ -2,6 +2,7 @@
  * Represents the owner of a GitHub repository.
  */
 type Owner = {
+  id?: string;
   login: string;
   avatarUrl: string;
 };
@@ -12,7 +13,7 @@ type Owner = {
 type Stargazer = {
   id: string;
   name: string | null;
-  totalCount: number;
+  totalCount?: number;
   avatarUrl: string;
 };
 
@@ -34,7 +35,7 @@ export type Repository = {
   description: string;
   owner: Owner;
   stargazerCount: number;
-  stargazers: Stargazers;
+  stargazers?: Stargazers;
 };
 
 /**

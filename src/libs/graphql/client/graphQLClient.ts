@@ -1,4 +1,9 @@
-import { GITHUB_URL } from "@/constants";
+import {
+  ERR_MESSAGE_GRAPHQL,
+  ERR_MESSAGE_HTTP,
+  ERR_MESSAGE_UNEXPECTED,
+  GITHUB_URL,
+} from "@/constants";
 import type { GraphQLClientConfig } from "@/types/graphql-client";
 
 /**
@@ -55,16 +60,16 @@ export const graphQLClient = async <T>(
       result.data = responseData.data as T;
     } else if (responseData.errors) {
       // Handle GraphQL errors
-      result.error = "It's not you. It's us!. Please try again later!";
+      result.error = ERR_MESSAGE_GRAPHQL;
       console.error("GraphQL query errors:", responseData.errors);
     } else {
       // Handle other HTTP errors
-      result.error = "Error occurred while fetching data. Please try again!";
+      result.error = ERR_MESSAGE_HTTP;
       console.error("Error fetching data:", responseData);
     }
   } catch (error) {
     // Handle unexpected errors
-    result.error = "An unexpected error occurred. Please try again!";
+    result.error = ERR_MESSAGE_UNEXPECTED;
     console.error("Error fetching data:", error);
   } finally {
     result.isLoading = false;
