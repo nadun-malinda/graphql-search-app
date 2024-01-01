@@ -41,7 +41,7 @@ export default function Home({ searchParams }: HomeProps): JSX.Element {
   const promise = getRepositories(searchParam);
 
   return (
-    <main className="flex flex-col justify-center items-center mb-6">
+    <>
       <Search focusOnLoad placeholder="Search for a GitHub repository..." />
 
       <Suspense fallback={<LoadingSkeleton />} key={searchParam}>
@@ -61,6 +61,6 @@ export default function Home({ searchParams }: HomeProps): JSX.Element {
           }
         </Await>
       </Suspense>
-    </main>
+    </>
   );
 }

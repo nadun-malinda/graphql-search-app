@@ -26,7 +26,7 @@ export function Button({
 }: ButtonProps): JSX.Element {
   return (
     <button
-      className={`rounded-full mb-6 bg-react-dark border border-gray-600 text-white py-2 px-6 ${
+      className={`rounded-full bg-react-dark border border-gray-600 text-white py-2 px-6 ${
         disabled ? "opacity-40 pointer-events-none" : ""
       }`}
       onClick={onClick}
