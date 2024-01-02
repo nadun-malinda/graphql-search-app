@@ -68,3 +68,39 @@ I have written both Unit tests and E2E tests for this app using Jest and Playwri
   # or
   yarn test:e2e:ui
   ```
+
+
+## Folder structure
+
+```bash
+.
+├── public                  # Public assets
+├── src                     # All the source files
+│   ├── tests               # Test files for e2e and mocks
+│   │   ├── e2e
+│   │   └── mocks
+│   ├── app                 # Homepage and detail page source code and its routes
+│   │   ├── detail          # Repository detail page-related files
+│   │   └── home            # Home page-related files
+│   ├── global.css          # Global CSS and tailwind decorators
+│   ├── layout.tsx          # Shared layout of the app
+│   ├── not-found.tsx       # Global not found page
+│   ├── components          # All the reusable components
+│   ├── context             # React context API files
+│   ├── hooks               # All the hooks
+│   ├── libs
+│   │   ├── graphql
+│   │   │   ├── client      # Custom GraphQL Client
+│   │   │   └── query       # GraphQL queries
+│   │   └── repository      # Getter functions to retrieve repository data
+│   ├── types               # All of the common types
+│   ├── util                # Utility functions
+│   └── constants.ts        # To host all of the shared constants
+├── node_modules
+├── package.json
+├── tsconfig.json
+├── next.config.js
+├── .env.local
+├── .env.test.local
+└── ...
+```
