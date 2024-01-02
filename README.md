@@ -14,6 +14,10 @@ This app is hosted on Vercel. You can see the live preview [here](https://nextjs
 ## Getting Started
 ### Project setup on the local environment
 - Clone this repository.
+  
+  ```bash
+  git@github.com:nadun-malinda/graphql-search-app.git
+  ```
 - You need node v18 or higher.
 - Install the dependencies:
   
