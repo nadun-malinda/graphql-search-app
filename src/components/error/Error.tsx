@@ -8,7 +8,7 @@
 export function Error({ message }: { message: string }): JSX.Element {
   return (
     <div className="flex justify-center items-center w-full">
-      <h2 className="text-lg text-white">{message}</h2>
+      <h2 className="text-lg text-white mb-8">{message}</h2>
     </div>
   );
 }
