@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a GitHub repository search application built by consuming GitHub GraphQL API. Using this app, users can search for any GitHub repositories and see the detailed view of every repository.  
+
+This app is hosted on Vercel. You can see the live preview [here](https://nextjs-graphql-search-app.vercel.app/) .
+
+###### (Since I'm using the Hobby version of Vercel, it might be possible to run out of the Image optimization quota allowed for the month at the time you are previewing it. If you see [fallback placeholder images](https://github.com/nadun-malinda/graphql-search-app/blob/main/src/components/image/Image.tsx) where the actual images are placed, please bear with me and I promise it is better on your local :see_no_evil:)
+
+## Technology stack
+- NextJS
+- TypeScript
+- TailwindCSS
+- Jest
+- Playwright
 
 ## Getting Started
+### Project setup on the local environment
+- Clone this repository.
+- You need node v18 or higher.
+- Install the dependencies:
+  
+  ```bash
+  npm install
+  # or
+  yarn
+  ```
+  
+- Create two `.env` files at the root level of the project.
+  - Copy the content of the `.env.example` file into a new file called `.env.local`. This file keeps the [GitHub Personal Access Token (PAT)](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) that needs to be used with the API to fetch repositories using GitHub GraphQL API.
+    
+  - Copy the content of the `.env.test.example` file into a new file called `.env.test.local`. This file also contains the same variables as `.env.local`, but this enables the test runners to pick `.env` variables safely while running unit and e2e tests.
 
-First, run the development server:
+- Then, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  ```bash
+  npm run dev
+  # or
+  yarn dev
+  ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 🚀
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Run tests
 
-To learn more about Next.js, take a look at the following resources:
+I have written both Unit tests and E2E tests for this app using Jest and Playwright. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Unit test
+- Run the Unit tests:
+  
+  ```bash
+  npm run test:unit
+  # or
+  yarn test:unit
+  ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Run the E2E tests on headless mode:
 
-## Deploy on Vercel
+  ```bash
+  npm run test:e2e
+  # or
+  yarn test:e2e
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Run the E2E tests on the UI:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  ```bash
+  npm run test:e2e:ui
+  # or
+  yarn test:e2e:ui
+  ```
