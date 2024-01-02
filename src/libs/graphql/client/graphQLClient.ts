@@ -3,6 +3,7 @@ import {
   ERR_MESSAGE_HTTP,
   ERR_MESSAGE_UNEXPECTED,
   GITHUB_URL,
+  NOT_FOUND_MESSAGE,
 } from "@/constants";
 import type { GraphQLClientConfig } from "@/types/graphql-client";
 
@@ -53,19 +54,22 @@ export const graphQLClient = async <T>(
       },
     });
 
-    const responseData = await response.json();
+    const { data, errors } = await response.json();
 
-    if (response.ok && !responseData.errors) {
+    if (response.ok && !errors) {
       // Successful response with no GraphQL errors
-      result.data = responseData.data as T;
-    } else if (responseData.errors) {
+      result.data = data as T;
+    } else if (errors) {
       // Handle GraphQL errors
-      result.error = ERR_MESSAGE_GRAPHQL;
-      console.error("GraphQL query errors:", responseData.errors);
+      result.error =
+        errors?.[0].type === "NOT_FOUND"
+          ? NOT_FOUND_MESSAGE
+          : ERR_MESSAGE_GRAPHQL;
+      console.error("GraphQL query errors:", errors);
     } else {
       // Handle other HTTP errors
       result.error = ERR_MESSAGE_HTTP;
-      console.error("Error fetching data:", responseData);
+      console.error("Error fetching data:", data);
     }
   } catch (error) {
     // Handle unexpected errors

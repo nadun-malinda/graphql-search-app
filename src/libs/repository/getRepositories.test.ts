@@ -1,7 +1,7 @@
 import { HttpResponse, graphql } from "msw";
 
-import { allRepositories } from "@/__tests__/__mocks__/handlers";
-import { server } from "@/__tests__/__mocks__/server";
+import { allRepositories } from "@/tests/mocks/handlers";
+import { server } from "@/tests/mocks/server";
 
 import { ERR_MESSAGE_GRAPHQL } from "@/constants";
 import { getRepositories } from ".";

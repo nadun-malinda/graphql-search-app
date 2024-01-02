@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "whatwg-fetch";
-import { server } from "@/__tests__/__mocks__/server";
+import { server } from "@/tests/mocks/server";
 
 beforeAll(() => {
   // Start the interception.

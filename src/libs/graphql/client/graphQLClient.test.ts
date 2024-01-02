@@ -1,7 +1,7 @@
 import { HttpResponse, graphql, http } from "msw";
 
-import { server } from "@/__tests__/__mocks__/server";
-import { allRepositories } from "@/__tests__/__mocks__/handlers";
+import { server } from "@/tests/mocks/server";
+import { allRepositories } from "@/tests/mocks/handlers";
 
 import { graphQLClient } from "./graphQLClient";
 import { GET_REPOSITORIES } from "../queries/repository";
