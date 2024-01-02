@@ -6,4 +6,10 @@ describe("generateUrlSearchString", () => {
     const result = generateUrlSearchString(query);
     expect(result).toBe("?search=test");
   });
+
+  it("should generate empty URL search string if the given query is null", () => {
+    const query = null;
+    const result = generateUrlSearchString(query);
+    expect(result).toBe("");
+  });
 });

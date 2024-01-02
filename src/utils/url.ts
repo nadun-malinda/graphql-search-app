@@ -8,5 +8,5 @@ import { URL_SEARCH_PARAM } from "@/constants";
  * @example generateUrlSearchString("test") // "?search=test"
  */
 export function generateUrlSearchString(query: string | null): string {
-  return `?${URL_SEARCH_PARAM}=${query}`;
+  return query ? `?${URL_SEARCH_PARAM}=${query}` : "";
 }

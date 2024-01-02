@@ -18,10 +18,15 @@ interface CardProps {
  * @param {CardProps} props - The input props.
  * @returns {JSX.Element} - The JSX element representing the Card component.
  */
-export function Card({ children, cssClasses }: CardProps): JSX.Element {
+export function Card({
+  children,
+  cssClasses,
+  ...props
+}: CardProps): JSX.Element {
   return (
     <div
       className={`bg-react-dark border border-gray-600 shadow-react-deep-slate hover:ring-2 transition-all rounded-xl p-5 h-full flex flex-col justify-between text-white ${cssClasses}`}
+      {...props}
     >
       {children}
     </div>

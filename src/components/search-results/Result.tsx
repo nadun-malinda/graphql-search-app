@@ -45,6 +45,7 @@ export function Result({
       onClick={() => handleResultClick(id)}
     >
       <Card
+        data-testid="single-result"
         cssClasses={`${
           clickedResults.includes(id) ? "opacity-50" : "opacity-1"
         }`}

@@ -18,3 +18,5 @@ export const ERR_MESSAGE_HTTP =
   "Error occurred while fetching data. Please try again!";
 export const ERR_MESSAGE_UNEXPECTED =
   "An unexpected error occurred. Please try again!";
+
+export const NOT_FOUND_MESSAGE = "Sorry, could not found requested resource!";

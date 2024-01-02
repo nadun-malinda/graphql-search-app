@@ -32,7 +32,10 @@ export function SearchResults({
   return (
     <>
       <Reset />
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
+      <div
+        className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full"
+        data-testid="search-results"
+      >
         {repositories?.map((repository) => (
           <Result
             key={repository.id}
