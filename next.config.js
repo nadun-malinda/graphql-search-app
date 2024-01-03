@@ -11,6 +11,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "nextjs-graphql-search-app.vercel.app",
         port: "",
+        pathname: "/_next/image",
       },
     ],
   },
