@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Search } from ".";
 
 jest.mock("next/navigation", () => ({
@@ -40,5 +40,33 @@ describe("Search", () => {
       "Search for a GitHub repository..."
     );
     expect(input).toBeInTheDocument();
+  });
+
+  it("should disable the search reset button when the input is empty", () => {
+    render(<Search />);
+    const searchResetButton = screen.getByRole("button", { name: "x" });
+    expect(searchResetButton).toBeDisabled();
+  });
+
+  it("should enabel the  search reset button when the input is not empty", () => {
+    render(<Search />);
+    const input = screen.getByRole("textbox");
+
+    fireEvent.change(input, { target: { value: "react" } });
+
+    const searchResetButton = screen.getByRole("button", { name: "x" });
+    expect(searchResetButton).toBeEnabled();
+  });
+
+  it("should reste the input field when the search reset button is clicked", () => {
+    render(<Search />);
+    const input = screen.getByRole("textbox");
+
+    fireEvent.change(input, { target: { value: "react" } });
+
+    const searchResetButton = screen.getByRole("button", { name: "x" });
+    fireEvent.click(searchResetButton);
+
+    expect(input).toHaveValue("");
   });
 });
